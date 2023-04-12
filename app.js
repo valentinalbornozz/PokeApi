@@ -1,80 +1,80 @@
-//Crear una función que reciba un número por parámetro e indique en consola si el número es par o impar.
-function esParOImpar(numero) {
-    if (numero % 2 === 0) {
-        console.log(numero + " es par");
-    } else {
-        console.log(numero + " es impar");
-    };
-};
-esParOImpar(1);
-esParOImpar(2);
+// Definimos el array de pizzas
+let pizzas = [
+  {
+    id: 1,
+    nombre: "Margarita",
+    ingredientes: ["salsa de tomate", "mozzarella", "albahaca"],
+    precio: 1250,
+  },
+  {
+    id: 2,
+    nombre: "Pepperoni",
+    ingredientes: ["salsa de tomate", "mozzarella", "pepperoni"],
+    precio: 400,
+  },
+  {
+    id: 3,
+    nombre: "Hawaiana",
+    ingredientes: ["salsa de tomate", "mozzarella", "jamón", "piña"],
+    precio: 1750,
+  },
+  {
+    id: 4,
+    nombre: "Vegetariana",
+    ingredientes: [
+      "salsa de tomate",
+      "mozzarella",
+      "champiñones",
+      "pimiento",
+      "cebolla",
+    ],
+    precio: 1200,
+  },
+];
 
-//Crear una función que reciba dos números por parámetro e indique en consola que número es mayor, y si ninguno lo es, indicar por consola que son iguales.
-function cualEsMayor(num1, num2) {
-    if (num1 > num2) {
-        console.log(num1 + " es mayor que " + num2);
-    } else if (num2 > num1) {
-        console.log(num2 + " es mayor que " + num1);
-    } else {
-        console.log(num1 + " y " + num2 + " son iguales");
-    };
-};
-cualEsMayor(8, 10);
-cualEsMayor(10, 10);
+//Ejercicio a entrega 2.8 Métodos de Array
+// Las pizzas que tengan un id impar. (Ejercicio "a")
+const pizzasConIdImpar = pizzas.filter((pizza) => pizza.id % 2 !== 0);
 
-//Crear una función que reciba un número por parámetro e indique en consola si ese número es múltiplo de 5.
-function esMultiploDe5(numero) {
-    if (numero % 5 === 0) {
-        console.log(numero + " es múltiplo de 5");
-    } else {
-        console.log(numero + " no es múltiplo de 5");
-    };
-};
-esMultiploDe5(2);
-esMultiploDe5(5);
+pizzasConIdImpar.forEach((pizza) => {
+  console.log(
+    `Pizza con id ${pizza.id} es impar - Nombre: ${
+      pizza.nombre
+    }, Ingredientes: ${pizza.ingredientes.join(", ")}, Precio: $${pizza.precio}`
+  );
+});
 
-//Crear una función que reciba un número por parámetro e imprima por consola todos los números desde el 0 hasta llegar a ese número.
-function impNumerosHasta(numero) {
-    for (let i = 0; i <= numero; i++) {
-        console.log(i);
-    };
-};
-impNumerosHasta(5);
+//Ejercicio b entrega 2.8 Métodos de Array
+//Responder: ¿Hay alguna pizza que valga menos de $600? (Ejercicio "b")
+let hayPizzaBarata = false;
 
-//Crear una función que reciba una palabra y un número por parámetro e imprima por consola  esa palabra la cantidad correspondiente al número indicado.
-function impPalabras(palabra, n) {
-    for (let i = 0; i < n; i++) {
-        console.log(palabra);
-    };
-};
-impPalabras("Hola", 3);
+for (let i = 0; i < pizzas.length; i++) {
+  if (pizzas[i].precio < 600) {
+    hayPizzaBarata = true;
+    break;
+  }
+}
 
-//Crear una función que reciba un array por parámetro e imprima por consola todos los valores de ese array.
-function impArray(array) {
-    for (let i = 0; i < array.length; i++) {
-        console.log(array[i]);
-    };
-};
-const numeros = [1, 2, 3, 4, 5];
-impArray(numeros);
+if (hayPizzaBarata) {
+  console.log("Sí, hay al menos una pizza que cuesta menos de $600");
+} else {
+  console.log("No, todas las pizzas cuestan más de $600");
+}
+//Ejercicio c entrega 2.8 Métodos de Array
+//El nombre de cada pizza con su respectivo precio. (Ejercicio "c")
+pizzas.forEach((pizza) => {
+  console.log(`${pizza.nombre}: $${pizza.precio}`);
+});
 
-//Crear una función que reciba un array con 10 números e imprima por consola todos los valores de ese array, menos el que se encuentre en la 5ta posición del mismo. Ayuda: Recuerden que el primer índice de un array es "0".
-function impArraySinQuintoElemento(array) {
-    for (let i = 0; i < array.length; i++) {
-        if (i !== 4) {
-            console.log(array[i]);
-        };
-    };
-};
-const array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-impArraySinQuintoElemento(array2);
+//Ejercicio d entrega 2.8 Métodos de Array
+//Todos los ingredientes de cada pizza (En cada iteración imprimir los ingredientes de la pizza que se esta recorriendo). Ayuda: van a tener que realizar dos recorridos, ya que cada pizza del array de pizzas tiene una propiedad "ingredientes" cuyo valor es un array con ingredientes. (Ejercicio "d")
+pizzas.forEach(pizza => {
+        // Utilizo esta linea de guiones para separar las pizzas y sus ingredientes de la consola
+    console.log('------------------------------------'); 
+    console.log(`Ingredientes de la pizza ${pizza.nombre}:`);
+    pizza.ingredientes.forEach(ingrediente => {
+      console.log(ingrediente);
+    });
 
-//Crea una función que reciba un array de números y un número por parámetro e imprima por consola cada número del array multiplicado por el número pasado por parámetro.
-function imprimirMultiplicacionArrayPorNumero(array, numero) {
-    for (let i = 0; i < array.length; i++) {
-        console.log(array[i] * numero);
-    };
-};
-const array = [1, 2, 3, 4, 5];
-const numero = 2;
-imprimirMultiplicacionArrayPorNumero(array, numero);
+  });
+  

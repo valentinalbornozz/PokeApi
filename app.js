@@ -1,37 +1,53 @@
 // Definimos el array de pizzas
-let pizzas = [
+const pizzas = [
   {
     id: 1,
-    nombre: "Margarita",
-    ingredientes: ["salsa de tomate", "mozzarella", "albahaca"],
-    precio: 1250,
+    nombre: "pizza de Muzzarella",
+    precio: 500,
+    ingredientes: ["Muzzarella", "Tomate", "Aceitunas"],
   },
+
   {
     id: 2,
-    nombre: "Pepperoni",
-    ingredientes: ["salsa de tomate", "mozzarella", "pepperoni"],
-    precio: 400,
+    nombre: "pizza de Cebolla",
+    precio: 1500,
+    ingredientes: ["Muzzarella", "Tomate", "Cebolla"],
   },
+
   {
     id: 3,
-    nombre: "Hawaiana",
-    ingredientes: ["salsa de tomate", "mozzarella", "jamón", "piña"],
-    precio: 1750,
+    nombre: "pizza Napolitana",
+    precio: 1350,
+    ingredientes: ["Muzzarella", "Tomate", "Aceitunas", "Anchoas"],
   },
+
   {
     id: 4,
-    nombre: "Vegetariana",
+    nombre: "pizza 4 Quesos",
+    precio: 1380,
     ingredientes: [
-      "salsa de tomate",
-      "mozzarella",
-      "champiñones",
-      "pimiento",
-      "cebolla",
+      "Muzzarella",
+      "Tomate",
+      "Queso Azul",
+      "Parmesano",
+      "Roquefort",
     ],
-    precio: 1200,
+  },
+
+  {
+    id: 5,
+    nombre: "pizza Especial",
+    precio: 1000,
+    ingredientes: ["Muzzarella", "Tomate", "Aceitunas", "Anchoas", "Cebolla"],
+  },
+
+  {
+    id: 6,
+    nombre: "pizza con Anana",
+    precio: 600,
+    ingredientes: ["Muzzarella", "Tomate", "Anana"],
   },
 ];
-
 //Ejercicio a entrega 2.8 Métodos de Array
 // Las pizzas que tengan un id impar. (Ejercicio "a")
 const pizzasConIdImpar = pizzas.filter((pizza) => pizza.id % 2 !== 0);

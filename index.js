@@ -140,3 +140,6 @@ window.addEventListener('load', () => {
     renderPizza(pizza);
   }
 });
+window.addEventListener("beforeunload", function() {
+  localStorage.clear();
+});

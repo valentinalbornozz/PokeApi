@@ -34,32 +34,26 @@ h1 {
 }
 
 .container {
-  max-width: 500px;
+  max-width: 100%;
   margin: 0 auto;
   background-color: #fff;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-form {
-  margin-bottom: 20px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-
 input[type="number"] {
-  width: 180px;
+  width: 190px;
   padding: 10px 0px 10px 10px;
   border-radius: 9999px;
   border: solid 1px #333;
   transition: all 0.2s ease-in-out;
   outline: none;
   opacity: 0.8;
+  margin: 10px 0px;
 }
 input[type="number"]:focus {
   opacity: 1;
@@ -94,34 +88,38 @@ button:active {
   margin-bottom: 10px;
 }
 
-.card {
-  width: 270px;
-  height: 325px;
+#pokemonContainer {
+  width: 240px;
+  height: 300px;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 20px;
-  padding: 10px;
-  margin-bottom: 20px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card img {
+#pokemonContainer img {
   width: 100%;
-  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 10%;
-  margin-bottom: 10px;
 }
 
-.card h2 {
+#pokemonContainer h3 {
   font-size: 20px;
+  display: flex;
   margin-bottom: 5px;
+  justify-content: center;
+  align-items: center;
 }
 
-.card p {
+#pokemonContainer p {
   font-size: 15px;
   display: flex;
   justify-content: center;

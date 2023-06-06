@@ -1,142 +1,93 @@
-const pizzas = [
-  {
-    id: 1,
-    nombre: "pizza de Muzzarella",
-    precio: 500,
-    ingredientes: ["Muzzarella", "Tomate", "Aceitunas"],
-    imagen: "./img/muzzarella.png",
-  },
+// Obtener referencia a los elementos del DOM
+const pokemonInput = document.getElementById('pokemonInput');
+const pokemonContainer = document.getElementById('pokemonContainer');
 
-  {
-    id: 2,
-    nombre: "pizza de Cebolla",
-    precio: 1500,
-    ingredientes: ["Muzzarella", "Tomate", "Cebolla"],
-    imagen: "./img/cebolla.png",
-  },
+// Ocultar el contenedor de Pokémon inicialmente
+pokemonContainer.style.display = 'none';
 
-  {
-    id: 3,
-    nombre: "pizza 4 Quesos",
-    precio: 1380,
-    ingredientes: [
-      "Muzzarella",
-      "Tomate",
-      "Queso Azul",
-      "Parmesano",
-      "Roquefort",
-    ],
-    imagen: "./img/4quesos.png",
-  },
+// Función para obtener un Pokémon
+async function getPokemon() {
+  const pokemonId = pokemonInput.value.trim();
 
-  {
-    id: 4,
-    nombre: "pizza Especial",
-    precio: 1000,
-    ingredientes: ["Muzzarella", "Tomate", "Rucula", "Jamón"],
-    imagen: "./img/especial.png",
-  },
-
-  {
-    id: 5,
-    nombre: "pizza con Anana",
-    precio: 600,
-    ingredientes: ["Muzzarella", "Tomate", "Anana"],
-    imagen: "./img/anana.png",
-  },
-];
-
-// Obtener referencias a los elementos del DOM
-const form = document.getElementById('search-form');
-const input = document.getElementById('pizza-id');
-const resultContainer = document.getElementById('result-container');
-
-// Escuchar el evento submit del formulario
-form.addEventListener('submit', handleSubmit);
-
-// Función para manejar la búsqueda de la pizza
-function handleSubmit(event) {
-  event.preventDefault();
-
-  // Obtener el ID de la pizza ingresado en el input
-  const pizzaId = parseInt(input.value);
-
-  // Verificar si el ID es válido
-  if (isNaN(pizzaId) || pizzaId <= 0) {
-    renderError('¡Ingresa un número de ID válido!');
+  if (pokemonId === '0') {
+    showError('Por favor, ingrese un ID de Pokémon válido.');
     return;
   }
 
-  // Buscar la pizza en el arreglo de pizzas por su ID
-  const pizza = pizzas.find(pizza => pizza.id === pizzaId);
+  const apiUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
 
-  // Verificar si se encontró la pizza
-  if (pizza) {
-    // Renderizar la pizza encontrada
-    renderPizza(pizza);
+  try {
+    const response = await fetch(apiUrl);
 
-    // Guardar la pizza en localStorage
-    localStorage.setItem('lastPizza', JSON.stringify(pizza));
-  } else {
-    renderError('¡No se encontró ninguna pizza con ese ID!');
+    if (!response.ok) {
+      throw new Error('No se encontró ningún Pokémon con ese ID.');
+    }
+
+    const pokemon = await response.json();
+    renderPokemonCard(pokemon);
+  } catch (error) {
+    showError('Error al cargar los datos del Pokémon: ' + error.message);
   }
-
-  // Limpiar el valor del input
-  input.value = '';
 }
 
-// Función para renderizar una pizza en el contenedor
-function renderPizza(pizza) {
-  // Crear la estructura de la card de la pizza
+// Función para renderizar la tarjeta de Pokémon
+function renderPokemonCard(pokemon) {
+  // Mostrar el contenedor de Pokémon
+  pokemonContainer.style.display = 'block';
+
+  pokemonContainer.innerHTML = '';
+
   const card = document.createElement('div');
   card.classList.add('card');
 
+  const name = document.createElement('h3');
+  name.textContent = pokemon.name;
+
+  const types = document.createElement('p');
+  types.innerHTML = '<strong>Tipo(s):</strong> ' + getTypes(pokemon);
+
+  const height = document.createElement('p');
+  height.innerHTML = '<strong>Altura:</strong> ' + (pokemon.height / 10) + ' m';
+
+  const weight = document.createElement('p');
+  weight.innerHTML = '<strong>Peso:</strong> ' + (pokemon.weight / 10) + ' kg';
+
   const image = document.createElement('img');
-  image.src = pizza.imagen;
-  image.alt = pizza.nombre;
+  image.src = pokemon.sprites.front_default;
+  image.alt = 'Imagen de ' + pokemon.name;
 
-  const content = document.createElement('div');
-  content.classList.add('content');
-
-  const name = document.createElement('h2');
-  name.textContent = pizza.nombre;
-
-  const price = document.createElement('p');
-  price.textContent = `Precio: $${pizza.precio}`;
-
-  // Agregar los elementos a la card
+  card.appendChild(name);
+  card.appendChild(types);
+  card.appendChild(height);
+  card.appendChild(weight);
   card.appendChild(image);
-  card.appendChild(content);
-  content.appendChild(name);
-  content.appendChild(price);
 
-  // Limpiar el contenedor antes de agregar la nueva pizza
-  resultContainer.innerHTML = '';
-
-  // Agregar la card al contenedor
-  resultContainer.appendChild(card);
+  pokemonContainer.appendChild(card);
 }
 
-// Función para renderizar un mensaje de error en el contenedor
-function renderError(message) {
-  // Crear un elemento de párrafo para el mensaje de error
+// Función para obtener los tipos de Pokémon
+function getTypes(pokemon) {
+  const types = pokemon.types.map(type => type.type.name);
+  return types.join(', ');
+}
+
+// Función para mostrar errores
+function showError(errorMessage) {
+  pokemonContainer.style.display = showError; // Ocultar el contenedor de Pokémon en caso de error
+
+  pokemonContainer.innerHTML = '';
+
   const error = document.createElement('p');
   error.classList.add('error');
-  error.textContent = message;
+  error.textContent = errorMessage;
 
-  // Limpiar el contenedor antes de agregar el mensaje de error
-  resultContainer.innerHTML = '';
+  pokemonContainer.appendChild(error);
 
-  // Agregar el mensaje de error al contenedor
-  resultContainer.appendChild(error);
+  // Centrar el mensaje de error en el medio del contenedor de Pokémon
+  pokemonContainer.style.display = 'flex';
+  pokemonContainer.style.justifyContent = 'center';
+  pokemonContainer.style.alignItems = 'center';
+  pokemonContainer.style.textAlign = 'center';
 }
 
-// Obtener la última pizza buscada de localStorage al cargar la página
-window.addEventListener('load', () => {
-  const lastPizza = localStorage.getItem('lastPizza');
 
-  if (lastPizza) {
-    const pizza = JSON.parse(lastPizza);
-    renderPizza(pizza);
-  }
-});

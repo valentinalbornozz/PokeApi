@@ -1,1 +1,1 @@
-Acá voy a realizar las entregas de Java Script
+Acá voy a realizar las entregas del modulo de JavaScript

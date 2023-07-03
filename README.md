@@ -1,1 +1,1 @@
-Conexión de api mediante js
+Conexión por API

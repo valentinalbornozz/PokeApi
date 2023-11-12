@@ -7,8 +7,6 @@ Una aplicación que te permite explorar y obtener información sobre diferentes 
 - [Descripción](#descripción)
 - [Instrucciones de Uso](#instrucciones-de-uso)
 - [Tecnologías Utilizadas](#tecnologías-utilizadas)
-- [Autor](#autor)
-- [Licencia](#licencia)
 
 ## Descripción
 
